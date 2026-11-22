@@ -77,8 +77,8 @@
                 <div class="social-links">
                     <a href="https://github.com/rohitrajput-demon" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
                     <a href="https://linkedin.com/in/rohit-rajput-a20901205" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="mailto:rohitrajput14359@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                    <a href="tel:+918421264220" aria-label="Phone"><i class="fas fa-phone"></i></a>
+                    <a href="#email-modal" class="email-trigger-btn" aria-label="Send Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://wa.me/918421264220?text=Hi%20Rohit%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
 
@@ -673,33 +673,36 @@
                     </p>
                     
                     <div class="contact-details">
-                        <a href="mailto:rohitrajput14359@gmail.com" class="contact-channel">
+                        <a href="#email-modal" class="contact-channel email-trigger-btn">
                             <div class="channel-icon"><i class="fas fa-envelope"></i></div>
-                            <div>
-                                <span class="channel-label">Email</span>
+                            <div class="channel-body">
+                                <span class="channel-label">Email (Click for Gmail / Mail App)</span>
                                 <span class="channel-value">rohitrajput14359@gmail.com</span>
                             </div>
+                            <span class="channel-action-badge"><i class="fas fa-paper-plane"></i> Send Email</span>
                         </a>
                         
-                        <a href="tel:+918421264220" class="contact-channel">
-                            <div class="channel-icon"><i class="fas fa-phone-alt"></i></div>
-                            <div>
-                                <span class="channel-label">Phone / WhatsApp</span>
+                        <a href="https://wa.me/918421264220?text=Hi%20Rohit%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" class="contact-channel whatsapp-channel">
+                            <div class="channel-icon whatsapp-icon"><i class="fab fa-whatsapp"></i></div>
+                            <div class="channel-body">
+                                <span class="channel-label">WhatsApp &bull; Instant Chat</span>
                                 <span class="channel-value">+91 8421264220</span>
                             </div>
+                            <span class="channel-action-badge whatsapp-badge"><i class="fab fa-whatsapp"></i> Chat Now</span>
                         </a>
 
                         <a href="https://linkedin.com/in/rohit-rajput-a20901205" target="_blank" rel="noopener noreferrer" class="contact-channel">
                             <div class="channel-icon"><i class="fab fa-linkedin-in"></i></div>
-                            <div>
+                            <div class="channel-body">
                                 <span class="channel-label">LinkedIn</span>
                                 <span class="channel-value">linkedin.com/in/rohit-rajput-a20901205</span>
                             </div>
+                            <span class="channel-action-badge"><i class="fas fa-arrow-up-right-from-square"></i> Connect</span>
                         </a>
 
                         <div class="contact-channel">
                             <div class="channel-icon"><i class="fas fa-location-dot"></i></div>
-                            <div>
+                            <div class="channel-body">
                                 <span class="channel-label">Location</span>
                                 <span class="channel-value">Pune, Maharashtra, India</span>
                             </div>
@@ -744,12 +747,59 @@
             <div class="footer-socials">
                 <a href="https://github.com/rohitrajput-demon" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/rohit-rajput-a20901205" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:rohitrajput14359@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                <a href="tel:+918421264220" aria-label="Phone"><i class="fas fa-phone"></i></a>
+                <a href="#email-modal" class="email-trigger-btn" aria-label="Send Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://wa.me/918421264220?text=Hi%20Rohit%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
             </div>
             <p class="copyright">&copy; <span id="year"></span> Rohit Pardeshi. Built with clean architecture, performance, and scale.</p>
         </div>
     </footer>
+
+    <!-- Email Client Chooser Modal -->
+    <div id="email-modal" class="email-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+        <div class="email-modal-backdrop" id="modal-backdrop"></div>
+        <div class="email-modal-card">
+            <button class="modal-close-btn" id="modal-close-btn" aria-label="Close dialog">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon"><i class="fas fa-envelope-open-text"></i></div>
+                <h3 id="modal-title">How would you like to email Rohit?</h3>
+                <p>Choose your preferred email client or copy the address:</p>
+            </div>
+            <div class="modal-options">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rohitrajput14359@gmail.com&su=Portfolio%20Inquiry%20-%20Rohit%20Pardeshi" target="_blank" rel="noopener noreferrer" class="modal-opt-btn opt-gmail" id="modal-opt-gmail">
+                    <div class="opt-icon"><i class="fab fa-google"></i></div>
+                    <div class="opt-text">
+                        <span class="opt-title">Open in Gmail (Web)</span>
+                        <span class="opt-desc">Opens Gmail compose in a new browser tab</span>
+                    </div>
+                    <i class="fas fa-chevron-right opt-arrow"></i>
+                </a>
+                <a href="mailto:rohitrajput14359@gmail.com?subject=Portfolio%20Inquiry%20-%20Rohit%20Pardeshi" class="modal-opt-btn opt-default" id="modal-opt-default">
+                    <div class="opt-icon"><i class="fas fa-paper-plane"></i></div>
+                    <div class="opt-text">
+                        <span class="opt-title">Default Mail App</span>
+                        <span class="opt-desc">Apple Mail, Outlook, or mobile mail client</span>
+                    </div>
+                    <i class="fas fa-chevron-right opt-arrow"></i>
+                </a>
+                <a href="https://wa.me/918421264220?text=Hi%20Rohit%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" class="modal-opt-btn opt-whatsapp">
+                    <div class="opt-icon"><i class="fab fa-whatsapp"></i></div>
+                    <div class="opt-text">
+                        <span class="opt-title">Chat on WhatsApp Instead</span>
+                        <span class="opt-desc">+91 8421264220 &bull; Instant reply</span>
+                    </div>
+                    <i class="fas fa-chevron-right opt-arrow"></i>
+                </a>
+                <button type="button" id="copy-email-btn" class="modal-opt-btn opt-copy">
+                    <div class="opt-icon"><i class="fas fa-copy"></i></div>
+                    <div class="opt-text">
+                        <span class="opt-title" id="copy-email-text">Copy Email Address</span>
+                        <span class="opt-desc">rohitrajput14359@gmail.com</span>
+                    </div>
+                    <i class="fas fa-check opt-arrow" id="copy-check-icon" style="display:none; color: var(--accent);"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Custom JS -->
     <script src="js/script.js"></script>

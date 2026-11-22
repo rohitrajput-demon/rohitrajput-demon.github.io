@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
-            if (!targetId || targetId === '#') return;
+            if (!targetId || targetId === '#' || targetId === '#email-modal') return;
 
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
@@ -118,7 +118,89 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 7. Contact Form Handling
+    // 7. Email Client Chooser Modal Logic
+    const emailModal = document.getElementById('email-modal');
+    const modalBackdrop = document.getElementById('modal-backdrop');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const emailTriggerBtns = document.querySelectorAll('.email-trigger-btn');
+    const copyEmailBtn = document.getElementById('copy-email-btn');
+    const copyEmailText = document.getElementById('copy-email-text');
+    const copyCheckIcon = document.getElementById('copy-check-icon');
+
+    const optGmail = document.getElementById('modal-opt-gmail');
+    const optDefault = document.getElementById('modal-opt-default');
+
+    const openEmailModal = (customSubject, customBody) => {
+        if (!emailModal) return;
+
+        const subject = customSubject || 'Portfolio Inquiry - Rohit Pardeshi';
+        const body = customBody || 'Hi Rohit,\n\nI came across your portfolio and would like to connect.\n\nBest regards,';
+
+        if (optGmail) {
+            optGmail.href = `https://mail.google.com/mail/?view=cm&fs=1&to=rohitrajput14359@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+        if (optDefault) {
+            optDefault.href = `mailto:rohitrajput14359@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        emailModal.classList.add('active');
+        emailModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeEmailModal = () => {
+        if (!emailModal) return;
+        emailModal.classList.remove('active');
+        emailModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    };
+
+    emailTriggerBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openEmailModal();
+        });
+    });
+
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeEmailModal);
+    if (modalBackdrop) modalBackdrop.addEventListener('click', closeEmailModal);
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && emailModal && emailModal.classList.contains('active')) {
+            closeEmailModal();
+        }
+    });
+
+    // Copy Email to Clipboard
+    if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', () => {
+            const emailAddress = 'rohitrajput14359@gmail.com';
+            navigator.clipboard.writeText(emailAddress).then(() => {
+                if (copyEmailText) copyEmailText.textContent = 'Copied to Clipboard!';
+                if (copyCheckIcon) copyCheckIcon.style.display = 'inline-block';
+
+                setTimeout(() => {
+                    if (copyEmailText) copyEmailText.textContent = 'Copy Email Address';
+                    if (copyCheckIcon) copyCheckIcon.style.display = 'none';
+                }, 3000);
+            }).catch(() => {
+                // Fallback for older browsers
+                const tempInput = document.createElement('input');
+                tempInput.value = emailAddress;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+
+                if (copyEmailText) copyEmailText.textContent = 'Copied to Clipboard!';
+                setTimeout(() => {
+                    if (copyEmailText) copyEmailText.textContent = 'Copy Email Address';
+                }, 3000);
+            });
+        });
+    }
+
+    // 8. Contact Form Handling
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
 
@@ -131,34 +213,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const subject = document.getElementById('subject').value.trim();
             const message = document.getElementById('message').value.trim();
 
-            const btn = contactForm.querySelector('button[type="submit"]');
-            const originalHTML = btn.innerHTML;
+            const formattedSubject = `[Portfolio] ${subject}`;
+            const formattedBody = `Hi Rohit,\n\n${message}\n\n---\nSender: ${name}\nEmail: ${email}`;
 
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing Email...';
-            btn.disabled = true;
+            // Open the app chooser modal pre-loaded with the user's message
+            openEmailModal(formattedSubject, formattedBody);
 
-            const mailtoSubject = encodeURIComponent(`[Portfolio Contact] ${subject}`);
-            const mailtoBody = encodeURIComponent(
-                `Hi Rohit,\n\n${message}\n\nBest regards,\n${name}\n(${email})`
-            );
-            const mailtoUrl = `mailto:rohitrajput14359@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
-
-            setTimeout(() => {
-                window.location.href = mailtoUrl;
-
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
-                contactForm.reset();
-
-                if (formStatus) {
-                    formStatus.innerHTML =
-                        '<i class="fas fa-check-circle"></i> Email client opened! You can also contact directly at <strong>rohitrajput14359@gmail.com</strong>.';
-                    formStatus.style.color = 'var(--accent)';
-                    setTimeout(() => {
-                        formStatus.textContent = '';
-                    }, 7000);
-                }
-            }, 600);
+            if (formStatus) {
+                formStatus.innerHTML =
+                    '<i class="fas fa-check-circle"></i> Choose <strong>Gmail</strong> or your <strong>Default Mail App</strong> above to send your message!';
+                formStatus.style.color = 'var(--accent)';
+                setTimeout(() => {
+                    formStatus.textContent = '';
+                }, 9000);
+            }
         });
     }
 });
